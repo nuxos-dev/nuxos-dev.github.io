@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Downloads — NuxOS Community Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080c14;
+      --surface: #0b0f1a;
+      --border: #1a2133;
+      --accent: #3b82f6;
+      --accent2: #60a5fa;
+      --text: #94a3b8;
+      --text-dim: #4b5a72;
+      --white: #e2e8f0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8,12,20,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+    }
+
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-text .brand {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700; font-size: 1.15rem;
+      color: var(--white); letter-spacing: 0.05em;
+    }
+    .logo-text .sub {
+      font-size: 0.7rem; color: var(--text-dim);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    .nav-links { display: flex; gap: 0.2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text); text-decoration: none;
+      font-size: 0.88rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem; border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      background: rgba(59,130,246,0.08);
+    }
+
+    @media (max-width: 700px) { .nav-links { display: none; } }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      padding: 110px 2rem 50px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.07) 0%, transparent 65%);
+    }
+
+    .page-hero .label {
+      display: inline-block;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 20px;
+    }
+
+    .page-hero h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; color: var(--white);
+      letter-spacing: 0.02em; margin-bottom: 0.75rem;
+    }
+
+    .page-hero p { max-width: 520px; margin: 0 auto; font-size: 0.97rem; }
+
+    /* ─── CONTAINER ─── */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .section-header h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700; font-size: 1.3rem;
+      color: var(--white); letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-header .line {
+      flex: 1; height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── EDITIONS GRID ─── */
+    .editions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 750px) {
+      .editions-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── EDITION CARD ─── */
+    .edition-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: fadeUp 0.5s ease both;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .edition-card:hover {
+      border-color: rgba(59,130,246,0.5);
+      transform: translateY(-2px);
+    }
+
+    .edition-card:nth-child(2) { animation-delay: 0.05s; }
+    .edition-card:nth-child(3) { animation-delay: 0.1s; }
+    .edition-card:nth-child(4) { animation-delay: 0.15s; }
+    .edition-card:nth-child(5) { animation-delay: 0.2s; }
+    .edition-card:nth-child(6) { animation-delay: 0.25s; }
+
+    .card-header {
+      padding: 1rem 1.25rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-header h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+
+    .badge-stable { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .badge-lts    { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+    .badge-exp    { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .badge-warn   { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+
+    .card-body {
+      padding: 1rem 1.25rem;
+      flex: 1;
+    }
+
+    .card-body p {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+
+    .card-body .warn-note {
+      font-size: 0.78rem;
+      color: #f87171;
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 5px;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── DOWNLOAD BUTTONS ─── */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .btn-dl {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      background: rgba(59,130,246,0.12);
+      color: var(--accent2);
+      border: 1px solid rgba(59,130,246,0.25);
+    }
+
+    .btn-dl:hover {
+      background: rgba(59,130,246,0.22);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateX(2px);
+    }
+
+    .btn-dl svg {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+
+    .btn-dl .btn-label { flex: 1; }
+    .btn-dl .btn-sub {
+      font-size: 0.7rem;
+      font-weight: 400;
+      opacity: 0.6;
+      letter-spacing: 0.03em;
+      text-transform: none;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      letter-spacing: 0.05em;
+    }
+
+    .notice {
+      background: rgba(59,130,246,0.06);
+      border: 1px solid rgba(59,130,246,0.18);
+      border-radius: 8px;
+      padding: 1rem 1.4rem;
+      font-size: 0.87rem;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .notice strong { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">
+      <img src="https://raw.githubusercontent.com/nuxos-dev/nuxos-dev.github.io/refs/heads/main/nuxos-logo.png" width="36" height="36" alt="NuxOS logo" />
+      <div class="logo-text">
+        <span class="brand">NuxOS</span>
+        <span class="sub">Community Project</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/about">About</a></li>
+      <li><a href="/downloads" class="active">Downloads</a></li>
+      <li><a href="/releases">Releases</a></li>
+      <li><a href="/community">Community</a></li>
+      <li><a href="https://github.com/nuxos-dev">Github</a></li>
+      <li><a href="/donate">Donate</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="label">Downloads</div>
+    <h1>Choose Your Edition</h1>
+    <p>Each edition is built for a specific purpose. Pick the one that fits your workload.</p>
+  </div>
+
+  <div class="container">
+
+    <div class="notice">
+      <strong>Note:</strong> All downloads are hosted on Google Drive. Files are provided as-is by the NuxOS Community Project. Current stable release: <strong>NuxOS Workstation 26.02.1</strong> — February 2026.
+    </div>
+
+    <!-- SERVER & ENTERPRISE & NEXT -->
+    <div class="section-header">
+      <h2>Core Editions</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="editions-grid">
+
+      <!-- SERVER -->
+      <div class="edition-card">
+        <div class="card-header">
+          <h3>Server</h3>
+          <span class="badge badge-stable">Stable</span>
+        </div>
+        <div class="card-body">
+          <p>The core of NuxOS. Minimal footprint for high-performance environments. Essential networking tools and security hardening out of the box.</p>
+          <div class="btn-group">
+            <a href="https://drive.usercontent.google.com/download?id=1lkDtS5AHUT8JwLoAr8xFhl0nKNcCGTjT&export=download&authuser=0" class="btn-dl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="btn-label">Server Core</span>
+              <span class="btn-sub">x86</span>
+            </a>
+            <a href="https://drive.usercontent.google.com/download?id=1vzfZ9i1lYWFOCh2NPM1s430VAFOd7-b3&export=download&authuser=0" class="btn-dl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="btn-label">Desktop Experience</span>
+              <span class="btn-sub">x86</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="edition-card">
+        <div class="card-header">
+          <h3>Enterprise</h3>
+          <span class="badge badge-lts">LTS</span>
+        </div>
+        <div class="card-body">
+          <p>Reliability at scale. Long-term support with advanced deployment tools. Optimized for stability, virtualization, and mission-critical workloads.</p>
+          <div class="btn-group">
+            <a href="https://drive.usercontent.google.com/download?id=1SrH6LA1Wsb87xzCPxYzSKPwsCoM3Di4j&export=download&authuser=0&confirm=t&uuid=b5cfb08b-5a8f-4988-81fc-1fb972aabbfb&at=ALWLOp4ZtD4k0FGtw0o8jYttnQ17:1763041796231" class="btn-dl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="btn-label">Enterprise LTS</span>
+              <span class="btn-sub">x86</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEXT -->
+      <div class="edition-card">
+        <div class="card-header">
+          <h3>NEXT</h3>
+          <span class="badge badge-exp">Experimental</span>
+        </div>
+        <div class="card-body">
+          <p>The bleeding edge. Early access to the latest features and experimental updates. For developers and users who want to test the future of NuxOS.</p>
+          <div class="btn-group">
+            <a href="https://drive.usercontent.google.com/download?id=1InAY8D--M8P_04EKRi3_EsGRlYLzYLLo&export=download&authuser=0" class="btn-dl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="btn-label">NEXT Build</span>
+              <span class="btn-sub">x86</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- WORKSTATION & GAMING -->
+    <div class="section-header" style="animation-delay:0.2s">
+      <h2>Desktop & Gaming</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="editions-grid">
+
+      <!-- WORKSTATION -->
+      <div class="edition-card">
+        <div class="card-header">
+          <h3>Workstation</h3>
+          <span class="badge badge-stable">Stable</span>
+        </div>
+        <div class="card-body">
+          <p>A high-performance environment for developers and creators. Pre-configured with essential coding tools, compilers, and optimized resource management.</p>
+          <div class="btn-group">
+            <a href="https://drive.usercontent.google.com/download?id=1ZLoqWQOgAeWdTfpeOpcMAM6qmOCYEhZ7&export=download&authuser=0" class="btn-dl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="btn-label">Workstation</span>
+              <span class="btn-sub">x86</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAMING -->
+      <div class="edition-card">
+        <div class="card-header">
+          <h3>Gaming</h3>
+          <span class="badge badge-stable">Stable</span>
+        </div>
+        <div class="card-body">
+          <p>Performance unleashed. Pre-configured with optimized drivers, low-latency configuration, and essential gaming libraries for a seamless experience.</p>
+          <div class="btn-group">
+            <a href="https://drive.usercontent.google.com/download?id=1pRVfexCGaOHKLnXzYJ7APtbBGSFfwbcW&export=download&authuser=0" class="btn-dl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="btn-label">Gaming (Defender On)</span>
+              <span class="btn-sub">x86</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAMING NO DEF info card -->
+      <div class="edition-card">
+        <div class="card-header">
+          <h3>Gaming — No Def</h3>
+          <span class="badge badge-warn">Advanced</span>
+        </div>
+        <div class="card-body">
+          <p>Maximum CPU and RAM availability during intensive workloads by removing Windows Defender.</p>
+          <div class="warn-note">
+            ⚠️ For advanced users only. Removing Windows Defender reduces system protection. Understand the risks before using this edition.
+          </div>
+          <div class="btn-group">
+            <a href="https://drive.usercontent.google.com/download?id=1zSnwOyVSuR-8JccGq4uxTN6uMXXb-J3R&export=download&authuser=0" class="btn-dl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="btn-label">Gaming No Defender</span>
+              <span class="btn-sub">x86</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 NuxOS &nbsp;|&nbsp; The NuxOS Community Project
+  </footer>
+
+</body>
+</html>
