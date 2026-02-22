@@ -299,6 +299,102 @@
       text-decoration: underline;
     }
 
+    /* ─── FEATURES SECTION ────────────────────────── */
+    .features {
+      background: linear-gradient(to bottom, rgba(8,12,20,0) 0%, rgba(11,15,26,0.8) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 2rem;
+    }
+
+    .features-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .features-header .label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .features-header h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.9rem;
+    }
+
+    .features-header p {
+      font-size: 0.97rem;
+      color: var(--text);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 700px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    .feature-card {
+      background: #0b0f1a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1.6rem;
+      transition: border-color 0.2s, transform 0.2s;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-2px);
+    }
+
+    .feature-card:nth-child(2) { animation-delay: 0.05s; }
+    .feature-card:nth-child(3) { animation-delay: 0.1s; }
+    .feature-card:nth-child(4) { animation-delay: 0.15s; }
+
+    .feature-card h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-card h3 .icon {
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+
+    .feature-card p {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
     /* ─── FOOTER ──────────────────────────────────── */
     footer {
       text-align: center;
@@ -343,6 +439,35 @@
       <div class="hero-btns">
         <a href="/downloads" class="btn btn-primary">Download NuxOS</a>
         <a href="/about" class="btn btn-ghost">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="features-inner">
+      <div class="features-header">
+        <span class="label">Features</span>
+        <h2>Why NuxOS Is Different</h2>
+        <p>NuxOS is not just a modified Windows build. It is a structured ecosystem engineered for performance, stability, and long-term usability.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3><span class="icon">🧹</span> Clean & Structured System Base</h3>
+          <p>NuxOS removes unnecessary components and telemetry while preserving core system integrity. No broken services. No unstable hacks. A clean foundation designed for reliability.</p>
+        </div>
+        <div class="feature-card">
+          <h3><span class="icon">⚡</span> Optimized Performance Layer</h3>
+          <p>Background services are streamlined and startup behavior is refined for lower RAM and CPU usage. The result: faster boot times, smoother multitasking, and consistent responsiveness.</p>
+        </div>
+        <div class="feature-card">
+          <h3><span class="icon">🎮</span> Full Compatibility — Even Kernel-Level Anti-Cheat</h3>
+          <p>Unlike many stripped builds, NuxOS maintains required system components for kernel-level security systems. Modern competitive games install and run without unexpected errors.</p>
+        </div>
+        <div class="feature-card">
+          <h3><span class="icon">🔓</span> Open Source Philosophy</h3>
+          <p>NuxOS embraces transparency. Build tools, scripts, and development direction are shared openly. Users can inspect, contribute, and understand how the system is built — because trust matters.</p>
+        </div>
       </div>
     </div>
   </section>
