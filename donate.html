@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate — NuxOS Community Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080c14;
+      --surface: #0b0f1a;
+      --border: #1a2133;
+      --accent: #3b82f6;
+      --accent2: #60a5fa;
+      --text: #94a3b8;
+      --text-dim: #4b5a72;
+      --white: #e2e8f0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8,12,20,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+    }
+
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-text .brand {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700; font-size: 1.15rem;
+      color: var(--white); letter-spacing: 0.05em;
+    }
+    .logo-text .sub {
+      font-size: 0.7rem; color: var(--text-dim);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    .nav-links { display: flex; gap: 0.2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text); text-decoration: none;
+      font-size: 0.88rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem; border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      background: rgba(59,130,246,0.08);
+    }
+
+    @media (max-width: 700px) { .nav-links { display: none; } }
+
+    /* ─── MAIN ─── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 2rem 4rem;
+    }
+
+    .donate-wrap {
+      max-width: 620px;
+      width: 100%;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── HEADER ─── */
+    .donate-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .donate-header .heart {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 0.75rem;
+      filter: drop-shadow(0 0 12px rgba(59,130,246,0.4));
+    }
+
+    .donate-header h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.3rem;
+    }
+
+    .donate-header h1 span { color: var(--accent2); }
+
+    /* ─── DESCRIPTION CARD ─── */
+    .desc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .desc-card p {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .desc-card p:last-child { margin-bottom: 0; }
+
+    .desc-card .highlight {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* ─── DIVIDER ─── */
+    .section-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── MOMO CARD ─── */
+    .momo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .momo-card:hover { border-color: rgba(168, 85, 247, 0.4); }
+
+    .momo-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .momo-logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+
+    .momo-logo-text {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+
+    .qr-frame {
+      display: inline-block;
+      padding: 12px;
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 0 30px rgba(168,85,247,0.15);
+    }
+
+    .qr-frame img {
+      display: block;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .btn-momo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 2rem;
+      border-radius: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: #fff;
+      transition: all 0.2s;
+      box-shadow: 0 0 20px rgba(168,85,247,0.25);
+    }
+
+    .btn-momo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(168,85,247,0.45);
+    }
+
+    /* ─── THANK YOU ─── */
+    .thankyou {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">
+      <img src="https://raw.githubusercontent.com/nuxos-dev/nuxos-dev.github.io/refs/heads/main/nuxos-logo.png" width="36" height="36" alt="NuxOS logo" />
+      <div class="logo-text">
+        <span class="brand">NuxOS</span>
+        <span class="sub">Community Project</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/about">About</a></li>
+      <li><a href="/downloads">Downloads</a></li>
+      <li><a href="/releases">Releases</a></li>
+      <li><a href="/community">Community</a></li>
+      <li><a href="https://github.com/nuxos-dev">Github</a></li>
+      <li><a href="/donate" class="active">Donate</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="donate-wrap">
+
+      <!-- Header -->
+      <div class="donate-header">
+        <span class="heart">💙</span>
+        <h1>Support <span>NuxOS</span></h1>
+      </div>
+
+      <!-- Description -->
+      <div class="desc-card">
+        <p>NuxOS is an <span class="highlight">independent, community-driven Windows ecosystem project</span> built for stability, performance, and long-term reliability — from Server and Enterprise to Workstation and Gaming.</p>
+        <p>Maintained by a solo developer, the project requires resources for hosting, storage, testing, and continuous development.</p>
+        <p>NuxOS does not rely on intrusive ads or forced monetization. If you find value in this project, your support helps keep it <span class="highlight">sustainable and evolving</span>.</p>
+        <p>Every contribution — big or small — makes a difference.</p>
+      </div>
+
+      <!-- Donate section -->
+      <div class="section-label">Choose a way to give that suits you</div>
+
+      <div class="momo-card">
+        <div class="qr-frame">
+          <img src="https://raw.githubusercontent.com/nuxos-dev/nuxos-dev.github.io/refs/heads/main/momo.jpg" alt="MoMo QR Code" />
+        </div>
+
+        <br/>
+        <a href="https://raw.githubusercontent.com/nuxos-dev/nuxos-dev.github.io/refs/heads/main/momo.jpg" class="btn-momo" target="_blank">
+          💜 Donate with MoMo
+        </a>
+      </div>
+
+      <p class="thankyou">Thank you for supporting independent development.</p>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2026 NuxOS &nbsp;|&nbsp; The NuxOS Community Project
+  </footer>
+
+</body>
+</html>
