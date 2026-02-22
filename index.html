@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NuxOS Community Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080c14;
+      --surface: #0d1117;
+      --surface2: #111823;
+      --border: #1e2535;
+      --accent: #3b82f6;
+      --accent2: #60a5fa;
+      --text: #94a3b8;
+      --text-dim: #4b5a72;
+      --white: #e2e8f0;
+      --snowflake: #7ea8d8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8, 12, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      position: relative;
+    }
+
+    /* SVG snowflake logo */
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text .brand {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+
+    .logo-text .sub {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      background: rgba(74, 158, 255, 0.08);
+    }
+
+    /* ─── HERO ────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(8,12,20,0.3) 0%, rgba(8,12,20,0.1) 40%, rgba(8,12,20,0.75) 100%),
+        url('https://images.hdqwalls.com/wallpapers/morning-light-on-mountain-pines-s9.jpg') center/cover no-repeat;
+      filter: saturate(1) brightness(0.95);
+    }
+
+    /* Animated particles */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, rgba(74,158,255,0.06) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 0 2rem;
+      animation: fadeUp 1s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    .hero-content h1 span {
+      color: var(--accent2);
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      color: rgba(200, 208, 224, 0.85);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.6rem;
+      border-radius: 4px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(74,158,255,0.3);
+    }
+
+    .btn-primary:hover {
+      background: #6ab4ff;
+      box-shadow: 0 0 30px rgba(74,158,255,0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(200,208,224,0.3);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ─── MAIN CONTENT ────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 700px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    /* ─── SECTION CARD ────────────────────────────── */
+    .card {
+      background: #0b0f1a;
+      border: 1px solid #1a2133;
+      border-radius: 10px;
+      padding: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .card:nth-child(2) { animation-delay: 0.1s; }
+
+    .card-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title .icon { font-size: 1.1rem; }
+
+    /* ─── NEWS LIST ───────────────────────────────── */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(42,47,63,0.6);
+      align-items: baseline;
+    }
+
+    .news-item:last-child { border-bottom: none; }
+
+    .news-date {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      min-width: 80px;
+    }
+
+    .news-link {
+      font-size: 0.88rem;
+      color: var(--accent);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+
+    .news-link:hover {
+      color: var(--accent2);
+      text-decoration: underline;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── SNOWFLAKE SVG ───────────────────────────── */
+    .snowflake-svg { color: var(--snowflake); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">
+      <svg class="logo-icon snowflake-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="18" y1="2" x2="18" y2="34" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="2" y1="18" x2="34" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="6.1" y1="6.1" x2="29.9" y2="29.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="29.9" y1="6.1" x2="6.1" y2="29.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="18" y1="2" x2="14" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="2" x2="22" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="34" x2="14" y2="29" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="34" x2="22" y2="29" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2" y1="18" x2="7" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2" y1="18" x2="7" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="34" y1="18" x2="29" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="34" y1="18" x2="29" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-text">
+        <span class="brand">NuxOS</span>
+        <span class="sub">Community Project</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Downloads</a></li>
+      <li><a href="#">Releases</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="#">Github</a></li>
+      <li><a href="#">Donate</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>The Better <span>Windows</span> Experience.</h1>
+      <p>NuxOS is a clean, stable Windows-based OS engineered for servers, power users, and long-term reliability.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn btn-primary">Download NuxOS</a>
+        <a href="#" class="btn btn-ghost">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main>
+    <div class="content-grid">
+
+      <!-- News -->
+      <div class="card">
+        <div class="card-title"><span class="icon">📢</span> NuxOS News</div>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-date">2025-02-16</span>
+            <a href="#" class="news-link">NuxOS NEXT Build 28020.1611 is ready!</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-15</span>
+            <a href="#" class="news-link">Users who subscribe to the project are offered access to the Canary Build 28020.1611.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-12</span>
+            <a href="#" class="news-link">NuxOS Workstation 26.02.1 Stable has been officially released.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-04</span>
+            <a href="#" class="news-link">NuxOS NEXT was released</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-02</span>
+            <a href="#" class="news-link">NuxOS NEXT has evolved.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-20</span>
+            <a href="#" class="news-link">Nux ToolBox releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-20</span>
+            <a href="#" class="news-link">NuxOS Server releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-15</span>
+            <a href="#" class="news-link">NuxOS 10 Enterprise LTSC release.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-12-28</span>
+            <a href="#" class="news-link">NuxOS11 Creator releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-27</span>
+            <a href="#" class="news-link">NuxOS Gaming Edition releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-23</span>
+            <a href="#" class="news-link">NuxOS Pro 25H2 releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-15</span>
+            <a href="#" class="news-link">NuxOS Enterprise LTSC v1.1 releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-13</span>
+            <a href="#" class="news-link">NuxOS Enterprise LTSC v1.0 releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-10-29</span>
+            <a href="#" class="news-link">NuxOS 8.1 released.</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Dev -->
+      <div class="card">
+        <div class="card-title"><span class="icon">❄️</span> Latest Development</div>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-date">2026-02-04</span>
+            <a href="#" class="news-link">NuxOS Workstation is currently under development.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-03</span>
+            <a href="#" class="news-link">NuxOS NEXT is currently in the testing phase.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-30</span>
+            <a href="#" class="news-link">NuxOS NEXT is currently under development.</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 NuxOS &nbsp;|&nbsp; The NuxOS Community Project
+  </footer>
+
+</body>
+</html>
