@@ -3,36 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — NuxOS Community Project</title>
+  <title>NuxOS Community Project</title>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #080c14;
-      --surface: #0b0f1a;
-      --border: #1a2133;
+      --surface: #0d1117;
+      --surface2: #111823;
+      --border: #1e2535;
       --accent: #3b82f6;
       --accent2: #60a5fa;
       --text: #94a3b8;
       --text-dim: #4b5a72;
       --white: #e2e8f0;
+      --snowflake: #7ea8d8;
     }
 
     html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Source Sans 3', sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
-    /* ─── NAV ─── */
+    /* ─── NAV ─────────────────────────────────────── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(8,12,20,0.92);
+      background: rgba(8, 12, 20, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -49,7 +52,19 @@
       text-decoration: none;
     }
 
-    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      position: relative;
+    }
+
+    /* SVG snowflake logo */
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
     .logo-text .brand {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
@@ -57,6 +72,7 @@
       color: var(--white);
       letter-spacing: 0.05em;
     }
+
     .logo-text .sub {
       font-size: 0.7rem;
       color: var(--text-dim);
@@ -64,7 +80,12 @@
       text-transform: uppercase;
     }
 
-    .nav-links { display: flex; gap: 0.2rem; list-style: none; }
+    .nav-links {
+      display: flex;
+      gap: 0.2rem;
+      list-style: none;
+    }
+
     .nav-links a {
       color: var(--text);
       text-decoration: none;
@@ -76,240 +97,422 @@
       border-radius: 4px;
       transition: color 0.2s, background 0.2s;
     }
-    .nav-links a:hover, .nav-links a.active {
+
+    .nav-links a:hover {
       color: var(--accent);
-      background: rgba(59,130,246,0.08);
+      background: rgba(74, 158, 255, 0.08);
     }
 
-    /* ─── PAGE HERO ─── */
-    .page-hero {
-      padding: 120px 2rem 60px;
+    /* ─── HERO ────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      border-bottom: 1px solid var(--border);
-      background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.07) 0%, transparent 65%);
+      overflow: hidden;
     }
 
-    .page-hero .label {
-      display: inline-block;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-      padding: 0.3rem 0.8rem;
-      border: 1px solid rgba(59,130,246,0.3);
-      border-radius: 20px;
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(8,12,20,0.3) 0%, rgba(8,12,20,0.1) 40%, rgba(8,12,20,0.75) 100%),
+        url('https://images.hdqwalls.com/wallpapers/morning-light-on-mountain-pines-s9.jpg') center/cover no-repeat;
+      filter: saturate(1) brightness(0.95);
     }
 
-    .page-hero h1 {
+    /* Animated particles */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, rgba(74,158,255,0.06) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 0 2rem;
+      animation: fadeUp 1s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content h1 {
       font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(2.2rem, 6vw, 4rem);
       font-weight: 700;
       color: var(--white);
       letter-spacing: 0.02em;
       margin-bottom: 1rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
     }
 
-    .page-hero p {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.05rem;
-      color: var(--text);
+    .hero-content h1 span {
+      color: var(--accent2);
     }
 
-    /* ─── LAYOUT ─── */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 4rem 2rem 6rem;
+    .hero-content p {
+      font-size: 1rem;
+      color: rgba(200, 208, 224, 0.85);
+      max-width: 500px;
+      margin: 0 auto 2rem;
     }
 
-    /* ─── SECTION ─── */
-    .section {
-      margin-bottom: 4rem;
-      animation: fadeUp 0.6s ease both;
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-label {
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.6rem;
+      border-radius: 4px;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .section h2 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.03em;
-      margin-bottom: 1rem;
-    }
-
-    .section p {
-      color: var(--text);
-      font-size: 0.97rem;
-      margin-bottom: 0.85rem;
-    }
-
-    .divider {
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
       border: none;
-      border-top: 1px solid var(--border);
-      margin: 3.5rem 0;
     }
 
-    /* ─── PRINCIPLES GRID ─── */
-    .principles-grid {
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(74,158,255,0.3);
+    }
+
+    .btn-primary:hover {
+      background: #6ab4ff;
+      box-shadow: 0 0 30px rgba(74,158,255,0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(200,208,224,0.3);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ─── MAIN CONTENT ────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    .content-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 1.5rem;
+      gap: 2rem;
     }
 
-    @media (max-width: 600px) {
-      .principles-grid { grid-template-columns: 1fr; }
+    @media (max-width: 700px) {
+      .content-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
 
-    .principle-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem 1.4rem;
-      transition: border-color 0.2s;
+    /* ─── SECTION CARD ────────────────────────────── */
+    .card {
+      background: #0b0f1a;
+      border: 1px solid #1a2133;
+      border-radius: 10px;
+      padding: 1.5rem;
+      animation: fadeUp 0.6s ease both;
     }
 
-    .principle-card:hover { border-color: rgba(59,130,246,0.4); }
+    .card:nth-child(2) { animation-delay: 0.1s; }
 
-    .principle-card h3 {
+    .card-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title .icon { font-size: 1.1rem; }
+
+    /* ─── NEWS LIST ───────────────────────────────── */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(42,47,63,0.6);
+      align-items: baseline;
+    }
+
+    .news-item:last-child { border-bottom: none; }
+
+    .news-date {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      min-width: 80px;
+    }
+
+    .news-link {
+      font-size: 0.88rem;
+      color: var(--accent);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+
+    .news-link:hover {
+      color: var(--accent2);
+      text-decoration: underline;
+    }
+
+    /* ─── FEATURES SECTION ────────────────────────── */
+    .features {
+      background: linear-gradient(to bottom, rgba(8,12,20,0) 0%, rgba(11,15,26,0.8) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 2rem;
+    }
+
+    .features-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .features-header .label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .features-header h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.9rem;
+    }
+
+    .features-header p {
+      font-size: 0.97rem;
+      color: var(--text);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 700px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    .feature-card {
+      background: #0b0f1a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1.6rem;
+      transition: border-color 0.2s, transform 0.2s;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-2px);
+    }
+
+    .feature-card:nth-child(2) { animation-delay: 0.05s; }
+    .feature-card:nth-child(3) { animation-delay: 0.1s; }
+    .feature-card:nth-child(4) { animation-delay: 0.15s; }
+
+    .feature-card h3 {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
       font-size: 1rem;
       color: var(--white);
       letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.65rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .principle-card h3 .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
+    .feature-card h3 .icon {
+      font-size: 1rem;
+      opacity: 0.85;
     }
 
-    .principle-card p {
+    .feature-card p {
       font-size: 0.88rem;
       color: var(--text);
-      margin: 0;
+      line-height: 1.65;
     }
 
-    /* ─── EDITIONS TABLE ─── */
-    .editions-grid {
+    /* ─── FAQ SECTION ─────────────────────────────── */
+    .faq {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-header .label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .faq-header h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .faq-list {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
+      gap: 0.6rem;
     }
 
-    .edition-row {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 1.5rem;
-      background: var(--surface);
+    .faq-item {
+      background: #0b0f1a;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.1rem 1.4rem;
-      align-items: start;
+      border-radius: 10px;
+      overflow: hidden;
       transition: border-color 0.2s;
     }
 
-    .edition-row:hover { border-color: rgba(59,130,246,0.4); }
-
-    .edition-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--accent2);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .faq-item.open {
+      border-color: rgba(59,130,246,0.35);
     }
 
-    .edition-desc {
-      font-size: 0.88rem;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .edition-row.experimental .edition-name { color: #f59e0b; }
-
-    @media (max-width: 600px) {
-      .edition-row { grid-template-columns: 1fr; gap: 0.3rem; }
-    }
-
-    /* ─── UPDATE STRATEGY ─── */
-    .update-row {
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.1rem 1.4rem;
       display: flex;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+      gap: 1rem;
     }
 
-    .update-card {
-      flex: 1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem 1.4rem;
-      text-align: center;
-    }
-
-    .update-card .month {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .update-card .type {
-      font-size: 0.8rem;
+    .faq-question span {
+      font-family: 'Source Sans 3', sans-serif;
       font-weight: 600;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      font-size: 0.97rem;
+      color: var(--white);
+      line-height: 1.4;
     }
 
-    /* ─── WHO IT'S FOR ─── */
-    .for-list {
-      margin-top: 1.2rem;
+    .faq-chevron {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--text-dim);
+      transition: transform 0.3s ease, color 0.2s;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 1.4rem;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding: 0 1.4rem 1.2rem;
+    }
+
+    .faq-answer p {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .faq-answer ul {
+      list-style: none;
+      margin-top: 0.5rem;
       display: flex;
       flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .faq-answer ul li {
+      font-size: 0.9rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
       gap: 0.5rem;
     }
 
-    .for-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .for-item::before {
+    .faq-answer ul li::before {
       content: '';
       width: 5px; height: 5px;
       border-radius: 50%;
@@ -317,24 +520,7 @@
       flex-shrink: 0;
     }
 
-    /* ─── CLOSING QUOTE ─── */
-    .closing {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 8px 8px 0;
-      padding: 1.5rem 2rem;
-      margin-top: 2rem;
-    }
-
-    .closing p {
-      font-size: 1rem;
-      color: var(--white);
-      font-style: italic;
-      margin: 0;
-    }
-
-    /* ─── FOOTER ─── */
+    /* ─── FOOTER ──────────────────────────────────── */
     footer {
       text-align: center;
       padding: 1.5rem;
@@ -343,6 +529,9 @@
       border-top: 1px solid var(--border);
       letter-spacing: 0.05em;
     }
+
+    /* ─── SNOWFLAKE SVG ───────────────────────────── */
+    .snowflake-svg { color: var(--snowflake); }
   </style>
 </head>
 <body>
@@ -357,7 +546,7 @@
       </div>
     </a>
     <ul class="nav-links">
-      <li><a href="/about" class="active">About</a></li>
+      <li><a href="/about">About</a></li>
       <li><a href="/downloads">Downloads</a></li>
       <li><a href="/releases">Releases</a></li>
       <li><a href="/community">Community</a></li>
@@ -366,147 +555,228 @@
     </ul>
   </nav>
 
-  <!-- PAGE HERO -->
-  <div class="page-hero">
-    <div class="label">About NuxOS</div>
-    <h1>A Purpose-Built Windows-Based<br>Operating System</h1>
-    <p>NuxOS is a community-driven OS designed with one clear principle: an operating system should serve its purpose, not pretend to serve everyone.</p>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="container">
-
-    <!-- Intro -->
-    <div class="section">
-      <div class="section-label">Overview</div>
-      <h2>Not a One-Size-Fits-All Solution</h2>
-      <p>NuxOS is not an all-in-one solution. It is a family of editions, each engineered for a specific workload, audience, and long-term goal.</p>
-      <p>From servers and enterprise environments to workstations and gaming systems, NuxOS provides clearly defined choices — without unnecessary compromises.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>The Better <span>Windows</span> Experience.</h1>
+      <p>NuxOS is a clean, stable Windows-based OS engineered for servers, power users, and long-term reliability.</p>
+      <div class="hero-btns">
+        <a href="/downloads" class="btn btn-primary">Download NuxOS</a>
+        <a href="/about" class="btn btn-ghost">Learn More</a>
+      </div>
     </div>
+  </section>
 
-    <hr class="divider" />
-
-    <!-- Philosophy -->
-    <div class="section">
-      <div class="section-label">Philosophy</div>
-      <h2>Built by Purpose, Not by Trend</h2>
-      <p>Most modified operating systems attempt to be everything at once: lightweight, gaming-ready, server-capable, secure, and beginner-friendly — often at the cost of clarity and reliability.</p>
-      <p>NuxOS takes a different path. Every edition has a clear target use case, a defined set of trade-offs, and a responsibility to do exactly what it claims. Nothing more. Nothing less.</p>
-      <p>You choose the edition. You accept its philosophy. We ensure it delivers.</p>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- Design Principles -->
-    <div class="section">
-      <div class="section-label">Design Principles</div>
-      <h2>What NuxOS Stands For</h2>
-      <div class="principles-grid">
-        <div class="principle-card">
-          <h3><span class="dot"></span>Clean by Design</h3>
-          <p>Focused on removing noise, not functionality. Core Windows features remain intact unless there is a clear, technical reason to change them.</p>
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="features-inner">
+      <div class="features-header">
+        <span class="label">Features</span>
+        <h2>Why NuxOS Is Different</h2>
+        <p>NuxOS is not just a modified Windows build. It is a structured ecosystem engineered for performance, stability, and long-term usability.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3><span class="icon">🧹</span> Clean & Structured System Base</h3>
+          <p>NuxOS removes unnecessary components and telemetry while preserving core system integrity. No broken services. No unstable hacks. A clean foundation designed for reliability.</p>
         </div>
-        <div class="principle-card">
-          <h3><span class="dot"></span>Stability First</h3>
-          <p>Every stable release prioritizes predictability, long-term reliability, and controlled updates — especially for enterprise and server environments.</p>
+        <div class="feature-card">
+          <h3><span class="icon">⚡</span> Optimized Performance Layer</h3>
+          <p>Background services are streamlined and startup behavior is refined for lower RAM and CPU usage. The result: faster boot times, smoother multitasking, and consistent responsiveness.</p>
         </div>
-        <div class="principle-card">
-          <h3><span class="dot"></span>Transparency</h3>
-          <p>No hidden scripts. No undocumented changes. No "magic tweaks" without explanation. Users should understand what their system does and why.</p>
+        <div class="feature-card">
+          <h3><span class="icon">🎮</span> Full Compatibility — Even Kernel-Level Anti-Cheat</h3>
+          <p>Unlike many stripped builds, NuxOS maintains required system components for kernel-level security systems. Modern competitive games install and run without unexpected errors.</p>
         </div>
-        <div class="principle-card">
-          <h3><span class="dot"></span>Minimal, Not Broken</h3>
-          <p>Minimalism means fewer unnecessary processes, not missing capabilities. The goal is efficiency without sacrificing essential Windows behavior.</p>
+        <div class="feature-card">
+          <h3><span class="icon">🔓</span> Open Source Philosophy</h3>
+          <p>NuxOS embraces transparency. Build tools, scripts, and development direction are shared openly. Users can inspect, contribute, and understand how the system is built — because trust matters.</p>
         </div>
       </div>
     </div>
+  </section>
 
-    <hr class="divider" />
+  <!-- MAIN -->
+  <main>
+    <div class="content-grid">
 
-    <!-- Editions -->
-    <div class="section">
-      <div class="section-label">Editions</div>
-      <h2>Each Built for a Specific Role</h2>
-      <div class="editions-grid">
-        <div class="edition-row">
-          <div class="edition-name">Server Edition</div>
-          <div class="edition-desc">Designed for high-performance and long-running workloads. Minimal footprint, hardened configuration, and optimized background services for reliability and uptime.</div>
-        </div>
-        <div class="edition-row">
-          <div class="edition-name">Enterprise (LTS)</div>
-          <div class="edition-desc">Focused on stability at scale. Long-term support releases with conservative updates, suitable for production systems, virtualization, and mission-critical environments.</div>
-        </div>
-        <div class="edition-row">
-          <div class="edition-name">Workstation</div>
-          <div class="edition-desc">Tailored for developers, creators, and professionals. Balanced performance, full tooling support, and optimized resource management for daily productivity.</div>
-        </div>
-        <div class="edition-row">
-          <div class="edition-name">Gaming Edition</div>
-          <div class="edition-desc">Performance-oriented configuration with reduced background overhead. Pre-tuned for low latency and smooth gameplay while maintaining system stability.</div>
-        </div>
-        <div class="edition-row">
-          <div class="edition-name">Gaming (No Defender)</div>
-          <div class="edition-desc">For advanced users who fully understand the trade-offs. Removes Windows Defender to maximize available system resources during intensive workloads.</div>
-        </div>
-        <div class="edition-row experimental">
-          <div class="edition-name">NEXT — Experimental</div>
-          <div class="edition-desc">The future of NuxOS. Early access builds for testing new ideas, configurations, and system changes before they reach stable releases.</div>
+      <!-- News -->
+      <div class="card">
+        <div class="card-title"><span class="icon">📢</span> NuxOS News</div>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-date">2025-02-16</span>
+            <a href="#" class="news-link">NuxOS NEXT Build 28020.1611 is ready!</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-15</span>
+            <a href="#" class="news-link">Users who subscribe to the project are offered access to the Canary Build 28020.1611.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-12</span>
+            <a href="#" class="news-link">NuxOS Workstation 26.02.1 Stable has been officially released.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-04</span>
+            <a href="#" class="news-link">NuxOS NEXT was released</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-02</span>
+            <a href="#" class="news-link">NuxOS NEXT has evolved.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-20</span>
+            <a href="#" class="news-link">Nux ToolBox releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-20</span>
+            <a href="#" class="news-link">NuxOS Server releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-15</span>
+            <a href="#" class="news-link">NuxOS 10 Enterprise LTSC release.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-12-28</span>
+            <a href="#" class="news-link">NuxOS11 Creator releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-27</span>
+            <a href="#" class="news-link">NuxOS Gaming Edition releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-23</span>
+            <a href="#" class="news-link">NuxOS Pro 25H2 releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-15</span>
+            <a href="#" class="news-link">NuxOS Enterprise LTSC v1.1 releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-11-13</span>
+            <a href="#" class="news-link">NuxOS Enterprise LTSC v1.0 releases.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2025-10-29</span>
+            <a href="#" class="news-link">NuxOS 8.1 released.</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <hr class="divider" />
-
-    <!-- Update Strategy -->
-    <div class="section">
-      <div class="section-label">Release Cycle</div>
-      <h2>Predictable. Consistent. Reliable.</h2>
-      <p>NuxOS follows a predictable release model inspired by enterprise Linux distributions, ensuring clear expectations and reduced disruption for production systems.</p>
-      <div class="update-row">
-        <div class="update-card">
-          <div class="month">03</div>
-          <div class="type">March — Regular Release</div>
+      <!-- Latest Dev -->
+      <div class="card">
+        <div class="card-title"><span class="icon">❄️</span> Latest Development</div>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-date">2026-02-04</span>
+            <a href="#" class="news-link">NuxOS Workstation is currently under development.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-02-03</span>
+            <a href="#" class="news-link">NuxOS NEXT is currently in the testing phase.</a>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-01-30</span>
+            <a href="#" class="news-link">NuxOS NEXT is currently under development.</a>
+          </div>
         </div>
-        <div class="update-card">
-          <div class="month">09</div>
-          <div class="type">September — LTS Release</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FAQ -->
+  <section style="border-top: 1px solid var(--border);">
+    <div class="faq">
+      <div class="faq-header">
+        <span class="label">FAQ</span>
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Is NuxOS a completely new operating system?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>No. NuxOS is a carefully rebuilt and optimized Windows-based system designed for performance, stability, and reduced unnecessary components.</p>
+          </div>
         </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Does NuxOS remove Windows Defender or critical security features?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Core security components remain intact in most editions. Some specialized editions (e.g., Gaming No-DEF) may adjust certain features, but system stability and compatibility are always prioritized.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I install updates normally?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. NuxOS maintains Windows Update functionality in supported editions. Enterprise and Workstation builds are optimized for long-term stability.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Will games with kernel-level anti-cheat work?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. NuxOS preserves required system services to ensure compatibility with modern anti-cheat systems used by competitive games.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Is NuxOS open source?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>While Windows itself is proprietary, NuxOS build tools and development philosophy emphasize transparency and community-driven improvements.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Who is NuxOS for?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <ul>
+              <li>Server & Enterprise users</li>
+              <li>Developers and creators</li>
+              <li>Gamers</li>
+              <li>Power users</li>
+              <li>Anyone seeking a cleaner Windows experience</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
+  </section>
 
-    <hr class="divider" />
-
-    <!-- Community -->
-    <div class="section">
-      <div class="section-label">Community Project</div>
-      <h2>Built by Enthusiasts, for Enthusiasts</h2>
-      <p>NuxOS is not a commercial product. It is a community project built by enthusiasts who care deeply about operating systems, performance, and long-term reliability.</p>
-      <p>Every release exists because someone needed it — and decided to build it properly.</p>
-      <p>NuxOS is built on genuine Microsoft Windows platforms, including Enterprise and Server editions. We do not replace Windows. We refine it — without feature stripping, artificial limitations, or aggressive rebranding.</p>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- Who it's for -->
-    <div class="section">
-      <div class="section-label">Who It's For</div>
-      <h2>The Right Tool for the Right Job</h2>
-      <div class="for-list">
-        <div class="for-item">Users who want control over their system</div>
-        <div class="for-item">Users who understand that optimization involves trade-offs</div>
-        <div class="for-item">Users who prefer clarity over hype</div>
-        <div class="for-item">Users who value stability as much as performance</div>
-      </div>
-      <div class="closing">
-        <p>If you want one button that "does everything," NuxOS is not for you. If you want the right tool for the right job — welcome.</p>
-      </div>
-    </div>
-
-  </div>
-
+  <!-- FOOTER -->
   <footer>
     © 2026 NuxOS &nbsp;|&nbsp; The NuxOS Community Project
   </footer>
 
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
 </body>
 </html>
