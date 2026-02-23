@@ -520,6 +520,107 @@
       flex-shrink: 0;
     }
 
+    /* ─── USER REVIEWS ────────────────────────────── */
+    .reviews {
+      padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .reviews-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .reviews-header .label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .reviews-header h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 650px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+
+    .review-bubble {
+      background: #0b0f1a;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem 1.6rem;
+      position: relative;
+      animation: fadeUp 0.5s ease both;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .review-bubble:hover {
+      border-color: rgba(59,130,246,0.35);
+      transform: translateY(-2px);
+    }
+
+    .review-bubble:nth-child(2) { animation-delay: 0.05s; }
+    .review-bubble:nth-child(3) { animation-delay: 0.10s; }
+    .review-bubble:nth-child(4) { animation-delay: 0.15s; }
+
+    .review-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--accent2);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .review-name .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .review-text {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    .review-text::before { content: '"'; color: var(--accent); font-style: normal; font-size: 1.1rem; }
+    .review-text::after  { content: '"'; color: var(--accent); font-style: normal; font-size: 1.1rem; }
+
     /* ─── FOOTER ──────────────────────────────────── */
     footer {
       text-align: center;
@@ -685,6 +786,51 @@
 
     </div>
   </main>
+
+  <!-- USER REVIEWS -->
+  <section class="reviews">
+    <div class="reviews-inner">
+      <div class="reviews-header">
+        <span class="label">User Reviews</span>
+        <h2>What People Are Saying</h2>
+      </div>
+      <div class="reviews-grid">
+
+        <div class="review-bubble">
+          <div class="review-name">
+            <div class="avatar">NN</div>
+            Ngọc Nhi
+          </div>
+          <p class="review-text">Chia sẻ hay lắm, phát huy nhé bạn! 💪</p>
+        </div>
+
+        <div class="review-bubble">
+          <div class="review-name">
+            <div class="avatar">TQ</div>
+            Trần Quốc Tuấn
+          </div>
+          <p class="review-text">Quá dữ</p>
+        </div>
+
+        <div class="review-bubble">
+          <div class="review-name">
+            <div class="avatar">PS</div>
+            Phan Nguyen Anh Sonn
+          </div>
+          <p class="review-text">Đã dùng win 11 của ông này cảm thấy rất mượt trên con pentium 4 =))</p>
+        </div>
+
+        <div class="review-bubble">
+          <div class="review-name">
+            <div class="avatar">DM</div>
+            Duc Manhh
+          </div>
+          <p class="review-text">Sài thử bản 11 lite của ông này trên quả laptop đời tống, mượt vcl</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- FAQ -->
   <section style="border-top: 1px solid var(--border);">
