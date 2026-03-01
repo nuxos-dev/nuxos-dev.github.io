@@ -19,6 +19,40 @@
       --white: #e2e8f0;
     }
 
+    html.light {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --border: #d0d8e8;
+      --accent: #2563eb;
+      --accent2: #1d6fe8;
+      --text: #475569;
+      --text-dim: #94a3b8;
+      --white: #1e293b;
+    }
+
+    html.light nav { background: rgba(240,244,248,0.92); }
+    html.light .edition-card { background: #ffffff; border-color: #d0d8e8; }
+    html.light .notice { background: rgba(148,163,184,0.08); border-color: #d0d8e8; }
+    html.light .btn-dl { background: rgba(37,99,235,0.08); border-color: rgba(37,99,235,0.2); }
+    html.light .btn-dl:hover { background: rgba(37,99,235,0.18); border-color: var(--accent); color: #1e293b; }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text);
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 16px; height: 16px; }
+    .icon-moon { display: block; }
+    .icon-sun  { display: none; }
+    html.light .icon-moon { display: none; }
+    html.light .icon-sun  { display: block; }
+    .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Source Sans 3', sans-serif;
@@ -283,6 +317,7 @@
         <span class="sub">Community Project</span>
       </div>
     </a>
+    <div class="nav-right">
     <ul class="nav-links">
       <li><a href="/about">About</a></li>
       <li><a href="/downloads" class="active">Downloads</a></li>
@@ -291,6 +326,11 @@
       <li><a href="https://github.com/nuxos-dev">Github</a></li>
       <li><a href="/donate">Donate</a></li>
     </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    </div>
   </nav>
 
   <!-- PAGE HERO -->
@@ -383,5 +423,15 @@
     © 2026 NuxOS &nbsp;|&nbsp; The NuxOS Community Project
   </footer>
 
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.classList.toggle('light');
+      localStorage.setItem('theme', html.classList.contains('light') ? 'light' : 'dark');
+    }
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('light');
+    }
+  </script>
 </body>
 </html>
